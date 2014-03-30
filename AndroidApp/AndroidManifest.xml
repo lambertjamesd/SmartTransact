@@ -27,6 +27,14 @@
                 <data android:scheme="transact"/>
             </intent-filter>
         </activity>
+		<activity
+			android:name="com.example.helloworld.AccountCreationActivity"
+			android:label="Create Account"
+			android:parentActivityName="com.example.helloworld.MainActivity" >
+			<meta-data
+			    android:name="android.support.PARENT_ACTIVITY"
+			    android:value="com.example.helloworld.MainActivity" />
+		</activity>
     </application>
 
 </manifest>
