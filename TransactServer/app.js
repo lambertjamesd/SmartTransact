@@ -46,11 +46,38 @@ fs.readFile('ServerPrivateKey.pem', 'utf8', function (err,data) {
 });
 
 var port = 8080;
-var domain = "localhost:" + port;
+var domain = "localhost";
+
+for (var i = 0; i < process.argv.length; ++i)
+{
+	var arg = process.argv[i];
+	
+	if (arg == "-p")
+	{
+		port = parseInt(process.argv[i + 1]);
+		++i;
+	}
+	else if (arg == "-d")
+	{
+		domain = process.argv[i + 1];
+		++i;
+	}
+}
+
+var fullHostName = null;
+
+if (port == 80)
+{
+	fullHostName = domain;
+}
+else
+{
+	fullHostName = domain + ':' + port;
+}
 
 function sendVerificationEmail(account, key)
 {
-	var activationUrl = "http://" + domain + "/activate/" + key.id + "?token=" + key.activationToken;
+	var activationUrl = "http://" + fullHostName + "/activate/" + key.id + "?token=" + key.activationToken;
 
 	var mailOptions = {
 		from: "Smart Tranasct <smart.transact.360@gmail.com>", // sender address
