@@ -25,6 +25,26 @@ var smtpTransport = nodemailer.createTransport("SMTP",{
     }
 });
 
+var serverPrivateKey = null;
+
+fs.readFile('ServerPrivateKey.pem', 'utf8', function (err,data) {
+	if (err)
+	{
+		console.log(err);
+	}
+	else
+	{	
+		try
+		{
+			serverPrivateKey = ursa.createPrivateKey(data, "", "utf8");
+		}
+		catch (error)
+		{
+			console.log("Error loading ServerPrivateKey.pem : " + error.toString());
+		}
+	}
+});
+
 var port = 8080;
 var domain = "localhost:" + port;
 
@@ -78,6 +98,8 @@ app.get('/', function(request, response){
 	var decrypted = publicRecreate.publicDecrypt(encrypted, "base64", "utf8");
 	
 	result += "Decrypted: " + decrypted + "<br />";
+	
+	result += "Ciphers: " + crypto.getCiphers() + "<br />";
 	
 	response.send(result);
 });
@@ -202,21 +224,63 @@ app.post('/account', function(request, response) {
 });
 
 // view personal account
-app.get('/account/:accountID', function(request, response) {
-	// TODO authentication
-	accountList.accessAccount(request.param('accountID'), function(account, error) {
-		if (account)
+app.get('/account/:keyID', function(request, response) {
+	accountList.accountWithKeypairID(request.param('keyID'), function(accountName, key)
+	{
+		if (accountName)
 		{
-			response.send(JSON.stringify({
-					name:account.name,
-					email:account.email,
-					balance:account.balance
-				}));
-			accountList.accessComplete(account, function() {});
+			accountList.accessAccount(accountName, function(account, error) {
+				if (account)
+				{
+					var publicKey = account.getKey(request.param('keyID'));
+					
+					if (publicKey.status == "inactive")
+					{
+						response.send(JSON.stringify({'error': "Key is not active"}));
+					}
+					else
+					{
+						publicKey.status = "active";
+						
+						var data = JSON.stringify({
+								name:account.name,
+								email:account.email,
+								balance:account.balance,
+								id:account.id
+							});
+							
+						crypto.randomBytes(48, function(exception, keyData) {
+							if (exception)
+							{
+								response.send(JSON.stringify({'error': exception.toString()}));
+							}
+							else
+							{
+								var aesKey = keyData.slice(0, 32);
+								var iv = keyData.slice(32, 48);
+								
+								var cipher = crypto.createCipheriv("aes-256-cbc", aesKey, iv);
+								var encryptedData = cipher.update(data, "utf8", "base64") + cipher.final("base64");
+								
+								var encryptedKey = publicKey.encrypt(keyData.toString('base64'), 'base64', 'base64');
+								
+								response.send(JSON.stringify({'data': encryptedData, 'key':encryptedKey}));
+							}
+						});
+							
+					}
+						
+					accountList.accessComplete(account, function() {});
+				}
+				else
+				{
+					response.send(JSON.stringify({'error': error.toString()}));
+				}
+			});
 		}
 		else
 		{
-			response.send(JSON.stringify({'error': error}));
+			response.send(JSON.stringify({'error': "Invalid key id"}));
 		}
 	});
 });
@@ -226,8 +290,14 @@ app.get('/verify/:accountID', function(request, response) {
 	accountList.accessAccount(request.param('accountID'), function(account, error) {
 		if (account)
 		{
-			var info = JSON.stringify({name:account.name});
+			var info = JSON.stringify({name:account.name, accountID:account.id});
 			accountList.accessComplete(account, function() {});
+			
+			var signer = ursa.createSigner("sha256");
+			signer.update(info, "utf8");
+			var signature = signer.sign(serverPrivateKey, "base64");
+			
+			response.send(JSON.stringify({'info': info, 'signature':signature}));
 		}
 		else
 		{
@@ -236,29 +306,30 @@ app.get('/verify/:accountID', function(request, response) {
 	});
 });
 
-// processes a certificate
-app.post('/deposit', function(request, response) {
-	
-	if (request.body.cert == null)
+// callback prototype - function(certificate, sourceName, [error])
+// is is a string if certificate and sourceName are null
+function verifyCertificate(certificateText, callback)
+{
+	if (certificateText == null)
 	{
-		response.send(JSON.stringify({'error': 'No certificate specified'}));
+		callback(null, null, 'No certificate specified');
 	}
 
 	var depositCertificate = null;
 	try
 	{
-		depositCertificate = DepositCertificate.parse(request.body.cert);
+		depositCertificate = DepositCertificate.parse(certificateText);
 	}
 	catch (error)
 	{
-		response.send(JSON.stringify({'error': error.toString()}));
+		callback(null, null, error.toString());
 		return;
 	}
 	
 	transactionHistory.hasDepositHappened(depositCertificate, function(result) {
 		if (result)
 		{
-			response.send(JSON.stringify({'error': "Certificate has already been used"}));
+			callback(null, null, "Certificate has already been used");
 		}
 		else
 		{
@@ -268,34 +339,62 @@ app.post('/deposit', function(request, response) {
 				{
 					if (key.status != "active")
 					{
-						response.send(JSON.stringify({'error': "Invalid key"}));
+						callback(null, null, "Invalid key");
 					}
 					else if (!key.verify(depositCertificate.digestInput, depositCertificate.signature))
 					{
-						response.send(JSON.stringify({'error': "Invalid Signature"}));
+						callback(null, null, "Invalid Signature");
 					}
 					else
 					{
-						accountList.transfer(accountName, depositCertificate.recepientID, depositCertificate.amount, function(result, error) {
-							if (result)
-							{
-								transactionHistory.logDeposit(depositCertificate, accountName, function() {
-									response.send(JSON.stringify({'result':true}));
-								});
-							}
-							else
-							{
-								response.send(JSON.stringify({'error': error.toString()}));
-							}
-						});
+						callback(depositCertificate, accountName);
 					}
 				}
 				else
 				{
-					response.send(JSON.stringify({'error': "No key found"}));
+					callback(null, null, "No key found");
 				}
 			});
 		
+		}
+	});
+}
+
+// determines if a certificate is usable 
+app.post('/deposit/verify', function(request, response) {
+	verifyCertificate(request.body.cert, function(certificate, sourceAccountName, error) {
+		if (error)
+		{
+			response.send(JSON.stringify({'error': error}));
+		}
+		else
+		{
+			response.send(JSON.stringify({'result': true}));
+		}
+	});
+});
+
+// processes a certificate
+app.post('/deposit', function(request, response) {
+	verifyCertificate(request.body.cert, function(depositCertificate, sourceAccountName, error) {
+		if (error)
+		{
+			response.send(JSON.stringify({'error': error}));
+		}
+		else
+		{
+			accountList.transfer(sourceAccountName, depositCertificate.recepientID, depositCertificate.amount, function(result, error) {
+				if (result)
+				{
+					transactionHistory.logDeposit(depositCertificate, sourceAccountName, function() {
+						response.send(JSON.stringify({'result':true}));
+					});
+				}
+				else
+				{
+					response.send(JSON.stringify({'error': error.toString()}));
+				}
+			});
 		}
 	});
 });

@@ -4,6 +4,8 @@ var crypto = require("crypto");
 
 function UserPublicKey(document)
 {
+	var encryptionKey = null;
+
 	if (document.publicKey == null)
 	{
 		throw new Error("No public key specified");
@@ -21,6 +23,15 @@ function UserPublicKey(document)
 	
 	this.__defineGetter__("id", function() {
 		return document.id;
+	});
+	
+	this.__defineGetter__("encryptionKey", function() {
+		if (encryptionKey == null)
+		{
+			encryptionKey = ursa.createPublicKey(this.publicKey, "utf8");
+		}
+		
+		return encryptionKey;
 	});
 	
 	this.__defineGetter__("publicKey", function() {
@@ -48,7 +59,7 @@ UserPublicKey.prototype.verify = function(data, signature)
 {
 	try
 	{	
-		var publicKey = ursa.createPublicKey(this.publicKey, "utf8");
+		var publicKey = this.encryptionKey;
 		
 		var verifier = ursa.createVerifier("sha256");
 		verifier.update(data, "utf8");
@@ -80,6 +91,11 @@ UserPublicKey.verifyPublicKey = function(publicKey)
 	{
 		return false;
 	}
+}
+
+UserPublicKey.prototype.encrypt = function(data, inputEncoding, outputEncoding)
+{
+	return this.encryptionKey.encrypt(data, inputEncoding, outputEncoding);
 }
 
 module.exports = UserPublicKey;
