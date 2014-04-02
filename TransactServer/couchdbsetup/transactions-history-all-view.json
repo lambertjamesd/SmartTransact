@@ -1,0 +1,10 @@
+{
+   "_id": "_design/history",
+   "_rev": "2-eebcd4628a353599ee14ea00b48cdd74",
+   "language": "javascript",
+   "views": {
+       "all": {
+           "map": "function(doc)\n{\n\temit(doc.recipient + ',' + doc.keypair + ',' + doc.amount + ',' + doc.timestamp, doc);\n}"
+       }
+   }
+}

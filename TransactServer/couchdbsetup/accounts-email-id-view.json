@@ -1,0 +1,10 @@
+{
+   "_id": "_design/email",
+   "_rev": "2-597e98d7e8bcf1c24bd18d0e59e6cc5f",
+   "language": "javascript",
+   "views": {
+       "all": {
+           "map": "function(doc)\n{\n    emit(doc.email, doc);\n}"
+       }
+   }
+}
