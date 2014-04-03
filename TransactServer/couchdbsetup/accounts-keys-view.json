@@ -1,6 +1,5 @@
 {
    "_id": "_design/keys",
-   "_rev": "5-20edbc74934f9969e02b4c197970e4de",
    "language": "javascript",
    "views": {
        "id": {
