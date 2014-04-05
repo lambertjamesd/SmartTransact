@@ -131,6 +131,42 @@ app.get('/', function(request, response){
 	response.send(result);
 });
 
+
+app.get('/resendToken/:keyID', function(request, response) {
+	accountList.accountWithKeypairID(request.param('keyID'), function(accountName, key)
+	{
+		if (accountName)
+		{
+			accountList.accessAccount(accountName, function(account, error) {
+				if (account)
+				{
+					var key = account.getKey(request.param('keyID'));
+					
+					if (key.status != "inactive")
+					{
+						response.send(JSON.stringify({'error': "Key does not need activation"}));
+					}
+					else
+					{
+						sendVerificationEmail(account, key);
+						response.send(JSON.stringify({'result': true}));
+					}
+						
+					accountList.accessComplete(account, function() {});
+				}
+				else
+				{
+					response.send(JSON.stringify({'error': error.toString()}));
+				}
+			});
+		}
+		else
+		{
+			response.send(JSON.stringify({'error': "Invalid key id"}));
+		}
+	});
+});
+
 // used in two step verification to authenticate key
 app.get('/activate/:keyID', function(request, response) {
 	accountList.accountWithKeypairID(request.param('keyID'), function(accountName, key)
@@ -153,6 +189,7 @@ app.get('/activate/:keyID', function(request, response) {
 					else
 					{
 						key.status = "active";
+						key.deleteActivationToken();
 						response.send(JSON.stringify({'result': true}));
 					}
 						
@@ -251,63 +288,57 @@ app.post('/account', function(request, response) {
 });
 
 // view personal account
-app.get('/account/:keyID', function(request, response) {
-	accountList.accountWithKeypairID(request.param('keyID'), function(accountName, key)
-	{
-		if (accountName)
+app.get('/account/:accountID', function(request, response) {
+	accountList.accessAccount(request.param('accountID'), function(account, error) {
+		if (account)
 		{
-			accountList.accessAccount(accountName, function(account, error) {
-				if (account)
-				{
-					var publicKey = account.getKey(request.param('keyID'));
+			var publicKey = account.getKey(request.param('key'));
+			
+			if (publicKey == null)
+			{
+				response.send(JSON.stringify({'error': "Invalid key id"}));
+			}
+			else if (publicKey.status == "inactive")
+			{
+				response.send(JSON.stringify({'error': "Key is not active"}));
+			}
+			else
+			{
+				publicKey.status = "active";
+				
+				var data = JSON.stringify({
+						name:account.name,
+						email:account.email,
+						balance:account.balance,
+						id:account.id
+					});
 					
-					if (publicKey.status == "inactive")
+				crypto.randomBytes(48, function(exception, keyData) {
+					if (exception)
 					{
-						response.send(JSON.stringify({'error': "Key is not active"}));
+						response.send(JSON.stringify({'error': exception.toString()}));
 					}
 					else
 					{
-						publicKey.status = "active";
+						var aesKey = keyData.slice(0, 32);
+						var iv = keyData.slice(32, 48);
 						
-						var data = JSON.stringify({
-								name:account.name,
-								email:account.email,
-								balance:account.balance,
-								id:account.id
-							});
-							
-						crypto.randomBytes(48, function(exception, keyData) {
-							if (exception)
-							{
-								response.send(JSON.stringify({'error': exception.toString()}));
-							}
-							else
-							{
-								var aesKey = keyData.slice(0, 32);
-								var iv = keyData.slice(32, 48);
-								
-								var cipher = crypto.createCipheriv("aes-256-cbc", aesKey, iv);
-								var encryptedData = cipher.update(data, "utf8", "base64") + cipher.final("base64");
-								
-								var encryptedKey = publicKey.encrypt(keyData.toString('base64'), 'base64', 'base64');
-								
-								response.send(JSON.stringify({'data': encryptedData, 'key':encryptedKey}));
-							}
-						});
-							
+						var cipher = crypto.createCipheriv("aes-256-cbc", aesKey, iv);
+						var encryptedData = cipher.update(data, "utf8", "base64") + cipher.final("base64");
+						
+						var encryptedKey = publicKey.encrypt(keyData.toString('base64'), 'base64', 'base64');
+						
+						response.send(JSON.stringify({'data': encryptedData, 'key':encryptedKey}));
 					}
-						
-					accountList.accessComplete(account, function() {});
-				}
-				else
-				{
-					response.send(JSON.stringify({'error': error.toString()}));
-				}
-			});
+				});
+					
+			}
+				
+			accountList.accessComplete(account, function() {});
 		}
 		else
 		{
-			response.send(JSON.stringify({'error': "Invalid key id"}));
+			response.send(JSON.stringify({'error': error.toString()}));
 		}
 	});
 });
@@ -317,7 +348,7 @@ app.get('/verify/:accountID', function(request, response) {
 	accountList.accessAccount(request.param('accountID'), function(account, error) {
 		if (account)
 		{
-			var info = JSON.stringify({name:account.name, accountID:account.id});
+			var info = JSON.stringify({name:account.name, id:account.id});
 			accountList.accessComplete(account, function() {});
 			
 			var signer = ursa.createSigner("sha256");

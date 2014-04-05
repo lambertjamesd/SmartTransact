@@ -72,6 +72,10 @@ UserPublicKey.prototype.verify = function(data, signature)
 	}
 }
 
+UserPublicKey.prototype.deleteActivationToken = function() {
+	delete this.document.activationToken;
+}
+
 UserPublicKey.createNew = function(publicKey)
 {
 	var keyID = crypto.randomBytes(12).toString('hex');	
