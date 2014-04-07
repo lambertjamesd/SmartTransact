@@ -3,15 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-    <EditText android:id="@+id/edit_message"
-        android:layout_weight="1"
-        android:layout_width="0dp"
+    android:orientation="vertical" 
+    android:background="#0080A0">
+
+    <EditText
+        android:id="@+id/url_input"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:height="20dp"
         android:hint="@string/edit_message" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_send"
-        android:onClick="createAccount" />
+        android:onClick="sendHTTPRequest"
+        android:text="@string/button_send" />
+
+    <EditText
+        android:id="@+id/request_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
 </LinearLayout>

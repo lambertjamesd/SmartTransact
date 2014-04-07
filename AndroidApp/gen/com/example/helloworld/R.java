@@ -17,10 +17,11 @@ public final class R {
         public static final int button1=0x7f060004;
         public static final int editText1=0x7f060003;
         public static final int editText2=0x7f060002;
-        public static final int edit_message=0x7f060005;
         public static final int progressBar1=0x7f060001;
-        public static final int test_label=0x7f060006;
+        public static final int request_result=0x7f060006;
+        public static final int test_label=0x7f060007;
         public static final int textView1=0x7f060000;
+        public static final int url_input=0x7f060005;
     }
     public static final class layout {
         public static final int activity_create_account=0x7f030000;
