@@ -1,0 +1,9 @@
+{
+   "_id": "_design/keys",
+   "language": "javascript",
+   "views": {
+       "id": {
+           "map": "function(doc){for (var i = 0; doc.keys && i < doc.keys.length; ++i){emit(doc.keys[i].id, doc.keys[i]);}}"
+       }
+   }
+}

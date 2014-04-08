@@ -1,3 +1,6 @@
+
+var UserPublicKey = require("../certificate/UserPublicKey");
+
 function Account(document, database)
 {
 	var lockCount = 0;
@@ -22,6 +25,11 @@ function Account(document, database)
 		isDirty = true;
 	}
 	
+	this.clearIsDirty = function()
+	{
+		isDirty = false;
+	}
+	
 	this.__defineGetter__("isDirty", function() {
 		return isDirty;
 	});
@@ -32,6 +40,14 @@ function Account(document, database)
 	
 	this.__defineGetter__("balance", function() {
 		return document.balance;
+	});
+	
+	this.__defineGetter__("email", function() {
+		return document.email;
+	});
+	
+	this.__defineGetter__("name", function() {
+		return document.name;
 	});
 	
 	this.__defineGetter__("_document", function() {
@@ -60,10 +76,31 @@ Account.prototype.deposit = function(amount)
 	this._document.balance += amount;
 }
 
+Account.prototype.addKey = function(publicKey)
+{
+	this.setIsDirty();
+	this._document.keys.push(publicKey.document);
+}
+
+Account.prototype.getKey = function(keyID)
+{
+	for (var i = 0; i < this._document.keys.length; ++i)
+	{
+		if (this._document.keys[i].id == keyID)
+		{
+			this.setIsDirty();
+			return new UserPublicKey(this._document.keys[i]);
+		}
+	}
+	
+	return null;
+}
+
 Account.prototype.commitChanges = function(callback)
 {
 	if (this.isDirty)
 	{
+		this.clearIsDirty();
 		this._database.saveDoc(this._document).then(
 			function(){
 				callback(true);
@@ -76,15 +113,9 @@ Account.prototype.commitChanges = function(callback)
 	}
 }
 
-Account.transfer = function(source, destination, amount, callback)
+Account.newAccount = function(email, name, database)
 {
-	source.withdraw(amount);
-	destination.deposit(amount);
-}
-
-Account.newAccount = function(accountName, database)
-{
-	var result = new Account({"_id":accountName, "balance":1000}, database);
+	var result = new Account({"email":email, "name":name, "balance":1000, "keys":[]}, database);
 	result.setIsDirty();
 	return result;
 }

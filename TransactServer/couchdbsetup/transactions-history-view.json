@@ -1,0 +1,9 @@
+{
+   "_id": "_design/history",
+   "language": "javascript",
+   "views": {
+       "all": {
+           "map": "function(doc)\n{\n\temit(doc.recipient + ',' + doc.keypair + ',' + doc.amount + ',' + doc.timestamp, doc);\n}"
+       }
+   }
+}
