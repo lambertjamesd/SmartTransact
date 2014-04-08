@@ -6,27 +6,23 @@
     android:orientation="vertical" 
     android:background="#0080A0">
 
-    <EditText
-        android:id="@+id/url_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:height="20dp"
-        android:hint="@string/edit_message" />
-
-    <Button
+    <TextView
+        android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="sendHTTPRequest"
-        android:text="@string/button_send" />
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
-        android:id="@+id/request_result"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:ems="10"
-        android:inputType="textMultiLine" >
+    <Button
+        android:id="@+id/signIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
-        <requestFocus />
-    </EditText>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>

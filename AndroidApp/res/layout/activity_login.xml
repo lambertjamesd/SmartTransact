@@ -12,16 +12,8 @@
             android:id="@+id/loginTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Account Creation"
+            android:text="Account Login"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/accountName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/email"
@@ -38,7 +30,7 @@
             android:id="@+id/signIn"
             android:layout_width="111dp"
             android:layout_height="wrap_content"
-            android:text="Sign Up" />
+            android:text="Sign In" />
 
         <ProgressBar
             android:id="@+id/keyGenStatus"
