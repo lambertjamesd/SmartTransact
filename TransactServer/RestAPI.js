@@ -4,6 +4,7 @@ var couchdb = require('couchdb');
 var fs = require('fs');
 var ursa = require('ursa');
 var nodemailer = require("nodemailer");
+var jade = require("jade");
 
 var AccountList = require('./database/AccountList');
 var TransactionHistory = require('./database/TransactionHistory');
@@ -134,9 +135,9 @@ function RestAPI(app)
 			}
 		});
 	});
-
-	// used in two step verification to authenticate key
-	app.get('/activate/:keyID', function(request, response) {
+	
+	function activateKey(request, response, callback)
+	{
 		accountList.accountWithKeypairID(request.param('keyID'), function(accountName, key)
 		{
 			if (accountName)
@@ -148,31 +149,38 @@ function RestAPI(app)
 						
 						if (key.status != "inactive")
 						{
-							response.send(JSON.stringify({'error': "Key does not need activation"}));
+							callback(false, "Key does not need activation");
 						}
 						else if (key.activationToken != request.param('token'))
 						{
-							response.send(JSON.stringify({'error': "Invalid activation token"}));
+							callback(false, "Invalid activation token");
 						}
 						else
 						{
 							key.status = "active";
 							key.deleteActivationToken();
-							response.send(JSON.stringify({'result': true}));
+							callback(true, "Activation successful");
 						}
 							
 						accountList.accessComplete(account, function() {});
 					}
 					else
 					{
-						response.send(JSON.stringify({'error': error.toString()}));
+						callback(false, error.toString());
 					}
 				});
 			}
 			else
 			{
-				response.send(JSON.stringify({'error': "Invalid key id"}));
+				callback(false, "Invalid key id");
 			}
+		});
+	}
+
+	// used in two step verification to authenticate key
+	app.get('/activate/:keyID', function(request, response) {
+		activateKey(request, response, function(result, message) {
+			response.send(jade.renderFile('views/activation.jade', {'title':"Smart Transact", "message":message}));
 		});
 	});
 
