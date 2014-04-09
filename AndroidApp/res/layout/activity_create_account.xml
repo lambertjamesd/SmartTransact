@@ -38,6 +38,7 @@
             android:id="@+id/signIn"
             android:layout_width="111dp"
             android:layout_height="wrap_content"
+            android:onClick="signUp"
             android:text="Sign Up" />
 
         <ProgressBar

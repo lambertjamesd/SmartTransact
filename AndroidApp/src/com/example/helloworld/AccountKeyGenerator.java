@@ -13,9 +13,9 @@ public class AccountKeyGenerator extends AsyncTask<Void, Void, KeyPair> {
 	
 	private IAccountKeyGeneratorDelegate delegate;
 	
-	public AccountKeyGenerator(IAccountKeyGeneratorDelegate delgate)
+	public AccountKeyGenerator(/*IAccountKeyGeneratorDelegate delgate*/)
 	{
-		this.delegate = delgate;
+		//this.delegate = delgate;
 	}
 
 	@Override
