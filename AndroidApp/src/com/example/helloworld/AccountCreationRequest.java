@@ -20,6 +20,14 @@ public class AccountCreationRequest extends ServerRequest{
 		addPostParameter("email", email);
 		this.delegate = delegate;
 	}
+	AccountCreationRequest(String email, KeyPair keys, IAccountCreationDelegate delegate)
+	{
+		super("/account/key" , "POST");
+		pair = keys;
+		addPostParameter("publicKey", AccountKeyGenerator.encodeAsPem(keys.getPublic(), "PUBLIC KEY"));
+		addPostParameter("email", email);
+		this.delegate = delegate;
+	}
 
 	@Override
 	protected void requestComplete(JsonReader result) {
@@ -66,7 +74,7 @@ public class AccountCreationRequest extends ServerRequest{
 			delegate.accountError(e.toString());
 			return;
 		}
-		delegate.accountCreated(new Account(accountID, pair, keyID));
+		delegate.accountCreated(new Account(accountID, null, keyID));
 		
 	}
 

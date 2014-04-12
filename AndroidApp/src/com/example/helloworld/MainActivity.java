@@ -39,6 +39,23 @@ public class MainActivity extends Activity
 		startActivity(createIntent);
 	}
 	
+	public void loginMain(View view)
+	{
+		Intent createIntent = new Intent(this, LoginActivity.class);
+		startActivity(createIntent);
+	}
+	
+	protected void onResume()
+	{
+		super.onResume();
+		Account account = AccountStore.loadAccount(getApplicationContext(), "default");
+		if(account != null)
+		{
+			Intent createIntent = new Intent(this, AccountBalanceActivity.class);
+			startActivity(createIntent);
+		}
+	}
+	
 	/*public void sendHTTPRequest(View view)
 	{
 		TextView url = (TextView)findViewById(R.id.url_input);

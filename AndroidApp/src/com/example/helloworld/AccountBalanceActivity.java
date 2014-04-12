@@ -1,5 +1,7 @@
 package com.example.helloworld;
 
+import com.smarttransact.account.AccountStore;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ public class AccountBalanceActivity extends Activity {
 	
 	public void logout(View view)
 	{
-		
+		AccountStore.removeAccount(getApplicationContext(), "default");
+		finish();
 	}
 }
