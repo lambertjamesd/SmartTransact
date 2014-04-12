@@ -32,12 +32,12 @@ public class MainActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Account test = new Account("foobar", null, "key");
-		AccountStore.saveAccount(getApplicationContext(), "default", test);
+		//Account test = new Account("foobar", null, "key");
+		//AccountStore.saveAccount(getApplicationContext(), "default", test);
 		
-		Account load = AccountStore.loadAccount(getApplicationContext(), "default");
-		System.out.println(load.getAccountID());
-		System.out.println(load.getKeyID());
+		//Account load = AccountStore.loadAccount(getApplicationContext(), "default");
+		//System.out.println(load.getAccountID());
+		//System.out.println(load.getKeyID());
 	}
 	
 	public void createAccount(View view)
