@@ -23,7 +23,7 @@ public final class R {
         public static final int createAccount=0x7f06000a;
         public static final int email=0x7f060007;
         public static final int keyGenStatus=0x7f060009;
-        public static final int login=0x7f060008;
+        public static final int loginButton=0x7f060008;
         public static final int loginTitle=0x7f060005;
         public static final int transact_to_label=0x7f06000d;
         public static final int transaction_error=0x7f06000b;
