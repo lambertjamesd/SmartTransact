@@ -20,11 +20,11 @@ public final class R {
         public static final int balanceNameValue=0x7f060001;
         public static final int balanceTitle=0x7f060002;
         public static final int balanceValue=0x7f060003;
-        public static final int button2=0x7f06000a;
+        public static final int createAccount=0x7f06000a;
         public static final int email=0x7f060007;
         public static final int keyGenStatus=0x7f060009;
+        public static final int login=0x7f060008;
         public static final int loginTitle=0x7f060005;
-        public static final int signIn=0x7f060008;
         public static final int test_label=0x7f06000b;
     }
     public static final class layout {

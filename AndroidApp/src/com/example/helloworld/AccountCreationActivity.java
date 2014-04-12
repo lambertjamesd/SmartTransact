@@ -16,18 +16,19 @@ public class AccountCreationActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_account);
-		AccountKeyGenerator keyGen = new AccountKeyGenerator();
+		AccountKeyGenerator keyGen = new AccountKeyGenerator(null);
 		key = keyGen.doInBackground();
-		
 	}
 	
 	public void signUp(View view)
 	{
 		TextView title = (TextView)findViewById(R.id.loginTitle);
-		TextView title = (TextView)findViewById(R.id.loginTitle);
 		EditText accountName = (EditText)findViewById(R.id.accountName);
 		EditText accountEmail = (EditText)findViewById(R.id.email);
-		
-		finish();
+		if(!accountName.getText().toString().equals("")
+				&& !accountEmail.getText().toString().equals(""))
+		{
+			finish();
+		}
 	}
 }

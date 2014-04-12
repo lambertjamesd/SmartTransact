@@ -35,7 +35,7 @@
         </EditText>
 
         <Button
-            android:id="@+id/signIn"
+            android:id="@+id/login"
             android:layout_width="111dp"
             android:layout_height="wrap_content"
             android:onClick="signUp"
