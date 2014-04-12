@@ -10,19 +10,12 @@ import java.io.ObjectOutputStream;
 import android.content.Context;
 
 public class AccountStore {
-	
-	private static File fileForAccount(Context context, String accountName)
-	{
-		return new File(context.getFilesDir(), "accounts/" + accountName);
-	}
 
 	public static Account loadAccount(Context context, String accountName)
 	{
-		File accountFile = fileForAccount(context, accountName);
-		
 		try
 		{
-			FileInputStream fileStream = new FileInputStream(accountFile);
+			FileInputStream fileStream = context.openFileInput(accountName);
 			ObjectInputStream objectStream = new ObjectInputStream(fileStream);
 			Account result = (Account)objectStream.readObject();
 			objectStream.close();
@@ -42,11 +35,9 @@ public class AccountStore {
 	
 	public static void saveAccount(Context context, String accountName, Account account)
 	{
-		File accountFile = fileForAccount(context, accountName);
-
 		try
 		{
-			FileOutputStream fileStream = new FileOutputStream(accountFile);
+			FileOutputStream fileStream = context.openFileOutput(accountName, Context.MODE_PRIVATE);
 	        ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
 	        objectStream.writeObject(account);
 	        objectStream.close();
@@ -60,7 +51,6 @@ public class AccountStore {
 	
 	public static void removeAccount(Context context, String accountName)
 	{
-		File accountFile = fileForAccount(context, accountName);
-		accountFile.delete();
+		context.deleteFile(accountName);
 	}
 }
