@@ -11,7 +11,7 @@ var TransactionHistory = require('./database/TransactionHistory');
 var DepositCertificate = require('./certificate/DepositCertificate');
 var UserPublicKey = require("./certificate/UserPublicKey");
 	
-function RestAPI(app)
+function RestAPI(app, fullHostName)
 {
 	var accountList = new AccountList(5984, 'localhost');
 	var transactionHistory = new TransactionHistory(5984, 'localhost');

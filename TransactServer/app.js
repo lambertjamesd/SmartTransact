@@ -37,7 +37,7 @@ else
 	fullHostName = domain + ':' + port;
 }
 
-RestAPI(app);
+RestAPI(app, fullHostName);
 Website(app);
 
 app.listen(port);
