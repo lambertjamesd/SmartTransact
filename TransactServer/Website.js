@@ -9,11 +9,11 @@ function Website(app)
 		response.send(jade.renderFile('views/index.jade', {'title':"Smart Transact"}));
 	});
 	
-	app.get('/example' function(request, response) {
+	app.get('/example', function(request, response) {
 		response.send(jade.renderFile('views/example.jade', {'title':"Smart Transact"}));
 	});
 	
-	app.post('/example/deposit' function(request, response) {
+	app.post('/example/deposit', function(request, response) {
 		response.send('{}'));
 	});
 }
