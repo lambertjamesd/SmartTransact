@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,16 +27,22 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 
-public abstract class ServerRequest<Result> extends AsyncTask<Void, Integer, JsonReader>
+public abstract class ServerRequest extends AsyncTask<Void, Integer, JsonReader>
 {
+	final private static String serverURI = "http://www.smarttransactapp.com";
 	private Map<String, String> parameters = new HashMap<String, String>();
 	
 	private URI uri;
 	private String method;
 	
-	protected ServerRequest(URI uri, String method)
+	protected ServerRequest(String path, String method)
 	{
-		this.uri = uri;
+		try {
+			this.uri = new URI(serverURI + path);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.method = method;
 	}
 	
