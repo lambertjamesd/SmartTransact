@@ -14,7 +14,7 @@ function Website(app)
 	});
 	
 	app.post('/example/deposit', function(request, response) {
-		response.send('{}'));
+		response.send('{}');
 	});
 }
 
