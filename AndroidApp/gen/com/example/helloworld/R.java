@@ -25,7 +25,10 @@ public final class R {
         public static final int keyGenStatus=0x7f060009;
         public static final int login=0x7f060008;
         public static final int loginTitle=0x7f060005;
-        public static final int test_label=0x7f06000b;
+        public static final int transact_to_label=0x7f06000d;
+        public static final int transaction_error=0x7f06000b;
+        public static final int transaction_recipient=0x7f06000e;
+        public static final int transasction_amount=0x7f06000c;
     }
     public static final class layout {
         public static final int activity_account_balance=0x7f030000;

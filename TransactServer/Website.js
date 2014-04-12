@@ -8,6 +8,10 @@ function Website(app)
 	app.get('/', function(request, response) {
 		response.send(jade.renderFile('views/index.jade', {'title':"Smart Transact"}));
 	});
+	
+	app.get('/example' function(request, response) {
+		response.send(jade.renderFile('views/example.jade', {'title':"Smart Transact"}));
+	});
 }
 
 module.exports = Website;
