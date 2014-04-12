@@ -14,6 +14,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.smarttransact.account.Account;
+import com.smarttransact.account.AccountStore;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,6 +31,13 @@ public class MainActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		Account test = new Account("foobar", null, "key");
+		AccountStore.saveAccount(getApplicationContext(), "default", test);
+		
+		Account load = AccountStore.loadAccount(getApplicationContext(), "default");
+		System.out.println(load.getAccountID());
+		System.out.println(load.getKeyID());
 	}
 	
 	public void createAccount(View view)
