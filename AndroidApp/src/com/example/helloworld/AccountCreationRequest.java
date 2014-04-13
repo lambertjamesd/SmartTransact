@@ -74,7 +74,7 @@ public class AccountCreationRequest extends ServerRequest{
 			delegate.accountError(e.toString());
 			return;
 		}
-		delegate.accountCreated(new Account(accountID, null, keyID));
+		delegate.accountCreated(new Account(accountID, pair, keyID));
 		
 	}
 

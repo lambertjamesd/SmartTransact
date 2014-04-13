@@ -1,6 +1,6 @@
 package com.smarttransact.deposit;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -24,7 +24,6 @@ public class Certificate {
 	
 	public String getUTCDate()
 	{
-		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
             "EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -61,6 +60,8 @@ public class Certificate {
 		result.append(keyID);
 		result.append("\nam: ");
 		result.append(amount);
+		result.append("\nt: ");
+		result.append(getUTCDate());
 		result.append("\nsig: ");
 		result.append(signature);
 		

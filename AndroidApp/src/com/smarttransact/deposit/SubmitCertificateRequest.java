@@ -7,12 +7,12 @@ import android.util.JsonReader;
 
 import com.example.helloworld.ServerRequest;
 
-public class VerifyCertificateRequest extends ServerRequest {
+public class SubmitCertificateRequest extends ServerRequest {
 	
-	private IVerifyCertificateDelegate delegate;
+	private ISubmitCertificateDelegate delegate;
 
-	public VerifyCertificateRequest(Certificate cert, IVerifyCertificateDelegate delegate) {
-		super("/deposit/verify", "POST");
+	public SubmitCertificateRequest(URI uri, Certificate cert, ISubmitCertificateDelegate delegate) {
+		super(uri, "POST");
 		addPostParameter("cert", cert.toString());
 		this.delegate = delegate;
 	}
@@ -22,7 +22,7 @@ public class VerifyCertificateRequest extends ServerRequest {
 	{
 		if (result == null)
 		{
-			delegate.certificateInvalid("Connection Error");
+			delegate.certificateSubmitError("Connection Error");
 		}
 		else
 		{
@@ -36,23 +36,23 @@ public class VerifyCertificateRequest extends ServerRequest {
 					{
 						if (result.nextBoolean())
 						{
-							delegate.certificateVerified();
+							delegate.certificateSubmitted();
 						}
 						else
 						{
-							delegate.certificateInvalid("Certificate not valid");
+							delegate.certificateSubmitError("Certificate not valid");
 						}
 					}
 					else if (name.equals("error"))
 					{
-						delegate.certificateInvalid(result.nextString());
+						delegate.certificateSubmitError(result.nextString());
 					}
 				 }
 				 result.endObject();
 			}
 			catch (IOException e)
 			{
-				delegate.certificateInvalid("Invalid json response");
+				delegate.certificateSubmitError("Invalid json response");
 			}
 		}
 	}

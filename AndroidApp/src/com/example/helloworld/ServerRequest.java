@@ -35,6 +35,12 @@ public abstract class ServerRequest extends AsyncTask<Void, Integer, JsonReader>
 	private URI uri;
 	private String method;
 	
+	protected ServerRequest(URI uri, String method)
+	{
+		this.uri = uri;
+		this.method = method;
+	}
+	
 	protected ServerRequest(String path, String method)
 	{
 		try {
