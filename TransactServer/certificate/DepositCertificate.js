@@ -14,7 +14,7 @@ function DepositCertificate(data)
 	});
 	
 	this.__defineGetter__("timestamp", function() {
-		return parseInt(data['t']);
+		return data['t'];
 	});
 	
 	this.__defineGetter__("signature", function() {
