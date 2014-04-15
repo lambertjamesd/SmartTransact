@@ -26,7 +26,7 @@ TransactionHistory.prototype.logDeposit = function(deposit, sender, callback)
 		"keypair" : deposit.keypairID,
 		"amount" : deposit.amount,
 		"timestamp" : deposit.timestamp,
-		"transactionTime" : new Date().getTime()
+		"transactionTime" : new Date().toUTCString()
 	};
 
 	this._database.saveDoc(deposit).then(
