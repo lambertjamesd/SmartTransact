@@ -1,0 +1,9 @@
+<resources>
+    <color name="background">#ff60b9ce</color>
+    <color name="headerBackground">#ff04819e</color>
+    <color name="confirmColor">#ff1924b1</color>
+    <color name="cancelColor">#ffff7f00</color>
+    <color name="buttonText">#ffffffff</color>
+    <color name="errorBackground">#ffff3800</color>
+    <color name="errorText">#ffffffff</color>
+</resources>

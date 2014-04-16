@@ -1,7 +1,25 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		div(class="header")
+			if(currentURL == '/')
+				a(href='/', class="selected") Home
+			else
+				a(href='/') Home
+
+			if(currentURL == '/download')
+				a(href='/download', class="selected") Download
+			else
+				a(href='/download') Download
+
+			if(currentURL == '/example')
+				a(href='/example', class="selected") Example
+			else
+				a(href='/example') Example
+		block content
+		hr
+		div(class="footer")
+			| Smart Transact &copy; 2014

@@ -1,8 +1,147 @@
 body {
-  padding: 50px;
+  padding:0px;
+  margin:0px;
+  
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: #ff7f00;
+  text-decoration: none;
+}
+
+.header {
+   padding: 19px;
+   background-color: #04819e;
+}
+
+.header a {
+   color: #60b9ce;
+   font-size: 1.5em;
+   text-decoration: none;
+   margin: 8px 0px;
+   padding: 20px;
+}
+
+.header a:hover {
+   color: white;
+}
+
+.header a.selected {
+   background-color: #60b9ce;
+   color: white;
+   box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.5);
+   text-shadow: 1px 1px #04819e;
+}
+
+.what {
+   background-color: #60b9ce;
+   padding: 50px;
+   font-size: 2em;
+   color: white;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+   text-shadow: 3px 3px #04819e;
+   text-align: center;
+}
+
+.content {
+    padding: 50px;
+}
+
+.download {
+	border: 2px solid #60b9ce;
+	background-color: white;
+	border-radius: 15px;
+	vertical-align: middle;
+	padding: 20px;
+    text-decoration: none;
+	color: #60b9ce;
+	font-size: 1.2em;
+}
+
+.download img {
+	vertical-align: middle;
+	margin-right: 15px;
+}
+
+.button {
+	background-color: #1924b1;
+	vertical-align: middle;
+	text-align: center;
+	padding: 15px;
+	margin: 10px;
+    text-decoration: none;
+	color: white;
+}
+
+.centered {
+	margin: 0px auto;
+	width: 400px;
+	font-size: 1em;
+}
+
+.leftCaption {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.footer {
+   margin-bottom: 25px;
+   text-align: center;
+}
+
+#androidImage {
+	width: 40px;
+}
+
+#screenShot {
+	width: 180px;
+	float: left;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+hr {
+	margin: 25px 50px;
+	color: #888
+}
+
+@media screen and (min-width: 800px) {
+	.what {
+		font-size: 4em;
+	}
+	
+	#screenShot {
+		width: 360px;
+	}
+	
+	.centered {
+		margin: 0px auto;
+		width: 800px;
+		font-size: 2em;
+	}
+	
+	.header {
+	   padding: 25px;
+	}
+
+	.header a {
+	   font-size: 2em;
+	   margin: 10x 0px;
+	   padding: 26px;
+	}
+
+	.download {
+		border-radius: 25px;
+		padding: 30px;
+		font-size: 2em;
+	}
+
+	.download img {
+		margin-right: 20px;
+	}
+	
+	#androidImage {
+		width: 71px;
+	}
 }

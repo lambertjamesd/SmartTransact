@@ -3,47 +3,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/background" >
 
     <TextView
         android:id="@+id/transaction_error"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Error"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:visibility="gone" />
+        android:textSize="10pt"
+        android:background="@color/errorBackground"
+        android:padding="@dimen/errorPadding"
+        android:textColor="@color/errorText"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/transasction_amount"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="100"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="14pt"
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+    	android:layout_marginTop="30dp"
+    	android:textColor="@color/buttonText" />
 
     <TextView
         android:id="@+id/transact_to_label"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="to"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textSize="10pt"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+    	android:layout_marginTop="@dimen/VMargin"
+    	android:textColor="@color/buttonText" />
 
     <TextView
         android:id="@+id/transaction_recipient"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Recipient"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-        
+        android:textSize="14pt"
+        android:textAppearance="?android:attr/textAppearanceLarge"  
+    	android:layout_marginTop="@dimen/VMargin"
+    	android:layout_marginBottom="30dp"
+    	android:textColor="@color/buttonText" />
+
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="confirmTransaction"
         android:text="@string/button_confirm"
-        android:onClick="confirmTransaction" />
-        
+        android:textSize="12pt"
+    	android:background="@color/confirmColor"
+    	android:layout_marginRight="@dimen/buttonHMargin"
+    	android:layout_marginLeft="@dimen/buttonHMargin" 
+    	android:layout_marginTop="@dimen/VMargin"
+    	android:textColor="@color/buttonText" />
+
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="cancelTransaction"
         android:text="@string/button_cancel"
-        android:onClick="cancelTransaction" />
+        android:textSize="12pt"
+    	android:background="@color/cancelColor"
+    	android:layout_marginRight="@dimen/buttonHMargin"
+    	android:layout_marginLeft="@dimen/buttonHMargin" 
+    	android:layout_marginTop="@dimen/VMargin"
+    	android:textColor="@color/buttonText"  />
     
 </LinearLayout>
