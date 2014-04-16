@@ -38,6 +38,6 @@ else
 }
 
 RestAPI(app, fullHostName);
-Website(app);
+Website(app, port, domain, fullHostName);
 
 app.listen(port);
