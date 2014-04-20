@@ -34,6 +34,12 @@ a {
    text-shadow: 1px 1px #04819e;
 }
 
+.success {
+	background-color: #09C009;
+	color: white;
+	padding: 20px;
+}
+
 .what {
    background-color: #60b9ce;
    padding: 50px;

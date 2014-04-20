@@ -21,7 +21,8 @@ PurchaseHistory.prototype.hasPurchaseHappened = function(purchaseID, callback)
 PurchaseHistory.prototype.logPurchase = function(purchaseID, callback)
 {
 	var purchase = {
-		"_id" : purchaseID
+		"_id" : purchaseID,
+		"timestamp" : new Date().toUTCString()
 	};
 
 	this._database.saveDoc(purchase).then(
