@@ -289,17 +289,17 @@ function RestAPI(app, fullHostName)
 							id:account.id
 						});
 						
-					crypto.randomBytes(48, function(exception, keyData) {
+					crypto.randomBytes(32, function(exception, keyData) {
 						if (exception)
 						{
 							response.send(JSON.stringify({'error': exception.toString()}));
 						}
 						else
 						{
-							var aesKey = keyData.slice(0, 32);
-							var iv = keyData.slice(32, 48);
+							var aesKey = keyData.slice(0, 16);
+							var iv = keyData.slice(16, 32);
 							
-							var cipher = crypto.createCipheriv("aes-256-cbc", aesKey, iv);
+							var cipher = crypto.createCipheriv("aes-128-cbc", aesKey, iv);
 							var encryptedData = cipher.update(data, "utf8", "base64") + cipher.final("base64");
 							
 							var encryptedKey = publicKey.encrypt(keyData.toString('base64'), 'base64', 'base64');
