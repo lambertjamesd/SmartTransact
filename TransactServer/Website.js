@@ -70,8 +70,6 @@ function Website(app, transactPort, transactDomain, fullHostName)
 					method: "POST",
 					headers: headers
 				};
-				
-				console.log(data);
 			
 				var depositRequest = http.request(requestOptions, function (depositResponse) {
 					  depositResponse.on('data', function(chunk) {
@@ -80,14 +78,13 @@ function Website(app, transactPort, transactDomain, fullHostName)
 					  depositResponse.on('end', function() {
 						var result = JSON.parse(jsonResponse);
 						
-						console.log(jsonResponse);
-						
 						if (result.error)
 						{
 							response.send(JSON.stringify({"error": result.error}));
 						}
 						else
 						{
+							purchaseHistory.logPurchase(request.param("purchaseID"), function () {});
 							response.send(JSON.stringify({"result": true}));
 						}
 					  });
