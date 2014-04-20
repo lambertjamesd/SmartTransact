@@ -8,6 +8,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAKey;
+import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -72,13 +73,13 @@ public class AccountBalanceActivity extends Activity implements IAccountBalanceD
 			byte[] dataBytes = Base64.decode(data, Base64.DEFAULT);
 			decryptCipher = Cipher.getInstance("RSA");
 			decryptCipher.init(Cipher.DECRYPT_MODE, account.getKey().getPrivate());
-			String decrypted = new String(decryptCipher.doFinal(keyBytes), "UTF-8");
-			String aesKey = decrypted.substring(0, 32);
-			String aesIV = decrypted.substring(32);
+			byte[] decrypted = decryptCipher.doFinal(keyBytes);
+			byte[] aesKey = Arrays.copyOfRange(decrypted, 0, 32);
+			byte[] aesIV = Arrays.copyOfRange(decrypted, 32, decrypted.length);
 			Cipher aesCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-		    aesCipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(aesKey.getBytes(), "AES"), new IvParameterSpec(aesIV.getBytes()));
+		    aesCipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(aesKey, "AES"), new IvParameterSpec(aesIV));
 		    String plainText = new String(aesCipher.doFinal(dataBytes), "UTF-8");
-		    /*JsonReader result = new JsonReader(new StringReader(plainText));
+		    JsonReader result = new JsonReader(new StringReader(plainText));
 		    try {
 				result.beginObject();
 				while(result.hasNext())
@@ -107,7 +108,7 @@ public class AccountBalanceActivity extends Activity implements IAccountBalanceD
 			{
 				e.printStackTrace();
 				return;
-			}*/
+			}
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
