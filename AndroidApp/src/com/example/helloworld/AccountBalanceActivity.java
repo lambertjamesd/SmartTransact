@@ -61,7 +61,6 @@ public class AccountBalanceActivity extends Activity implements IAccountBalanceD
 		TextView balanceValue = (TextView)findViewById(R.id.balanceValue);
 		Button logout = (Button)findViewById(R.id.balanceLogout);
 		Button recheck = (Button)findViewById(R.id.balanceRecheck);
-		name.setText("Balooooons!");
 		nameValue.setVisibility(View.VISIBLE);
 		balance.setVisibility(View.VISIBLE);
 		balanceValue.setVisibility(View.VISIBLE);
@@ -69,14 +68,15 @@ public class AccountBalanceActivity extends Activity implements IAccountBalanceD
 		logout.setVisibility(View.VISIBLE);
 		Cipher decryptCipher = null;
 		try {
-			byte[] keyBytes = Base64.decode(key, Base64.DEFAULT);
-			byte[] dataBytes = Base64.decode(data, Base64.DEFAULT);
-			decryptCipher = Cipher.getInstance("RSA");
+			byte[] keyBytes = Base64.decode(key, Base64.NO_WRAP);
+			byte[] dataBytes = Base64.decode(data, Base64.NO_WRAP);
+			decryptCipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding");
 			decryptCipher.init(Cipher.DECRYPT_MODE, account.getKey().getPrivate());
 			byte[] decrypted = decryptCipher.doFinal(keyBytes);
-			byte[] aesKey = Arrays.copyOfRange(decrypted, 0, 32);
-			byte[] aesIV = Arrays.copyOfRange(decrypted, 32, decrypted.length);
-			Cipher aesCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			byte[] aesKey = Arrays.copyOfRange(decrypted, 0, 16);
+			byte[] aesIV = Arrays.copyOfRange(decrypted, 16, 32);
+			
+			Cipher aesCipher = Cipher.getInstance("AES/CBC/NoPadding");
 		    aesCipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(aesKey, "AES"), new IvParameterSpec(aesIV));
 		    String plainText = new String(aesCipher.doFinal(dataBytes), "UTF-8");
 		    JsonReader result = new JsonReader(new StringReader(plainText));
