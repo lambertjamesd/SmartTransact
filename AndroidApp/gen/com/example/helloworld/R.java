@@ -28,21 +28,22 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int accountName=0x7f080006;
+        public static final int accountName=0x7f080007;
         public static final int balanceLogout=0x7f080004;
         public static final int balanceNameTitle=0x7f080000;
         public static final int balanceNameValue=0x7f080001;
+        public static final int balanceRecheck=0x7f080005;
         public static final int balanceTitle=0x7f080002;
         public static final int balanceValue=0x7f080003;
-        public static final int createAccount=0x7f08000a;
-        public static final int email=0x7f080007;
-        public static final int keyGenStatus=0x7f080009;
-        public static final int loginButton=0x7f080008;
-        public static final int loginTitle=0x7f080005;
-        public static final int transact_to_label=0x7f08000d;
-        public static final int transaction_error=0x7f08000b;
-        public static final int transaction_recipient=0x7f08000e;
-        public static final int transasction_amount=0x7f08000c;
+        public static final int createAccount=0x7f08000b;
+        public static final int email=0x7f080008;
+        public static final int keyGenStatus=0x7f08000a;
+        public static final int loginButton=0x7f080009;
+        public static final int loginTitle=0x7f080006;
+        public static final int transact_to_label=0x7f08000e;
+        public static final int transaction_error=0x7f08000c;
+        public static final int transaction_recipient=0x7f08000f;
+        public static final int transasction_amount=0x7f08000d;
     }
     public static final class layout {
         public static final int activity_account_balance=0x7f030000;

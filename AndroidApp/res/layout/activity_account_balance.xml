@@ -39,4 +39,11 @@
         android:onClick="logout"
         android:text="Logout" />
 
+    <Button
+        android:id="@+id/balanceRecheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recheck"
+        android:onClick="recheck" />
+
 </LinearLayout>
