@@ -1,5 +1,5 @@
 
 module.exports = {
-	smtpUser: "",
-	smtpPassword: ""
+	smtpUser: "smart.transact.360@gmail.com",
+	smtpPassword: "cs360final"
 };

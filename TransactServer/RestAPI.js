@@ -11,7 +11,7 @@ var TransactionHistory = require('./database/TransactionHistory');
 var DepositCertificate = require('./certificate/DepositCertificate');
 var UserPublicKey = require("./certificate/UserPublicKey");
 	
-function RestAPI(app, fullHostName)
+function RestAPI(app, fullHostName, smtpEmail, smtpPassword)
 {
 	var accountList = new AccountList(5984, 'localhost');
 	var transactionHistory = new TransactionHistory(5984, 'localhost');
@@ -19,8 +19,8 @@ function RestAPI(app, fullHostName)
 	var smtpTransport = nodemailer.createTransport("SMTP",{
 		service: "Gmail",
 		auth: {
-			user: "smart.transact.360@gmail.com",
-			pass: "cs360final"
+			user: smtpEmail,
+			pass: smtpPassword
 		}
 	});
 
@@ -49,7 +49,7 @@ function RestAPI(app, fullHostName)
 		var activationUrl = "http://" + fullHostName + "/activate/" + key.id + "?token=" + key.activationToken;
 
 		var mailOptions = {
-			from: "Smart Tranasct <smart.transact.360@gmail.com>", // sender address
+			from: "Smart Tranasct <" + smtpEmail + ">", // sender address
 			to: account.name + " <" + account.email + ">", // list of receivers
 			subject: "Finish login", // Subject line
 			text: "Click the link to activate your keypair \n" + activationUrl, // plaintext body
@@ -65,40 +65,6 @@ function RestAPI(app, fullHostName)
 			}
 		});
 	}
-
-	app.get('/testing', function(request, response){
-		var keypair = ursa.generatePrivateKey(2048, 65537);
-		var result = "";
-		
-		
-		for (var key in keypair)
-		{
-			result += key + ', ';
-		}
-		
-		result += "<br />";
-		
-		var publicPem = keypair.toPublicPem("utf8");
-		var privatePem = keypair.toPrivatePem("utf8");
-		
-		result += "Public Key: " + publicPem + "<br />";
-		result += "Private Key: " + privatePem + "<br />";
-		
-		var publicRecreate = ursa.createPublicKey(publicPem, "utf8");
-		var privateRecreate = ursa.createPrivateKey(privatePem, "", "utf8");
-		
-		var encrypted = privateRecreate.privateEncrypt("Hello World", "utf8", "base64");
-		
-		result += "Encrypted: " + encrypted + "<br />";
-		
-		var decrypted = publicRecreate.publicDecrypt(encrypted, "base64", "utf8");
-		
-		result += "Decrypted: " + decrypted + "<br />";
-		
-		result += "Ciphers: " + crypto.getCiphers() + "<br />";
-		
-		response.send(result);
-	});
 
 
 	app.get('/resendToken/:keyID', function(request, response) {
@@ -276,7 +242,7 @@ function RestAPI(app, fullHostName)
 				}
 				else if (publicKey.status == "inactive")
 				{
-					response.send(JSON.stringify({'error': "Key is not active"}));
+					response.send(JSON.stringify({'error': "Key not active. Check your email."}));
 				}
 				else
 				{
