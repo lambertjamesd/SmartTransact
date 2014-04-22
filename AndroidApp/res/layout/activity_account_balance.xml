@@ -28,11 +28,11 @@
 
     <TextView
         android:id="@+id/balanceNameValue"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center" 
         android:textSize="14pt"/>
 
     <TextView
@@ -46,11 +46,11 @@
 
     <TextView
         android:id="@+id/balanceValue"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center"
         android:textSize="14pt" />
 
     <Button
