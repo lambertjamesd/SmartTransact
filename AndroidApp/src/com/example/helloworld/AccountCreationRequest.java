@@ -37,7 +37,9 @@ public class AccountCreationRequest extends ServerRequest{
 		if(result == null)
 		{
 			delegate.accountError("no reader returned");
+			return;
 		}
+
 		try {
 			result.beginObject();
 			while(result.hasNext())
