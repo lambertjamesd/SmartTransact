@@ -10,17 +10,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class AccountCreationActivity extends Activity implements IAccountCreationDelegate {
+public class AccountCreationActivity extends Activity implements IAccountCreationDelegate, IAccountKeyGeneratorDelegate {
 	KeyPair key;
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_account);
-		AccountKeyGenerator keyGen = new AccountKeyGenerator(null);
-		key = keyGen.doInBackground();
+		AccountKeyGenerator keyGen = new AccountKeyGenerator(this);
+		keyGen.execute();
 	}
 	
 	public void signUp(View view)
@@ -46,5 +47,13 @@ public class AccountCreationActivity extends Activity implements IAccountCreatio
 	public void accountError(String message) {
 		TextView title = (TextView)findViewById(R.id.loginTitle);
 		title.setText(message);
+	}
+
+	@Override
+	public void keypairFinished(KeyPair keypair) {
+		key = keypair;
+		Button signup = (Button)findViewById(R.id.loginButton);
+		signup.setEnabled(true);
+		
 	}
 }

@@ -4,27 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="#0080A0">
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/loginTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:gravity="center"
+        android:text="@string/text_welcome"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="14pt" />
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/buttonHMargin"
+        android:layout_marginRight="@dimen/buttonHMargin"
+        android:layout_marginTop="@dimen/VMargin"
+        android:background="@color/confirmColor"
         android:onClick="loginMain"
-        android:text="Log In" />
+        android:text="@string/button_login"
+        android:textColor="@color/buttonText"
+        android:textSize="12pt" />
 
     <Button
         android:id="@+id/createAccount"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="createAccount"
-        android:text="Create Account" />
+        android:text="@string/button_create_account"
+        android:textColor="@color/buttonText"
+        android:textSize="12pt"
+        android:layout_marginLeft="@dimen/buttonHMargin"
+        android:layout_marginRight="@dimen/buttonHMargin"
+        android:layout_marginTop="@dimen/VMargin"
+        android:background="@color/confirmColor" />
 
 </LinearLayout>

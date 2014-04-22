@@ -8,5 +8,18 @@
     
     <string name="button_confirm">Confirm</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_logout">Logout</string>
+    <string name="button_refresh">Refresh</string>
+    <string name="button_sign_up">Sign Up</string>
+    <string name="button_sign_in">Sign In</string>
+    <string name="button_login">Login</string>
+    <string name="button_create_account">Create Account</string>
+    <string name="text_welcome">Welcome</string>
+    <string name="text_account_name">Account Name</string>
+    <string name="text_account_balance">Account Balance</string>
+    <string name="text_account_creation">Account Creation</string>
+    <string name="text_account_login">Account Login</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
 
 </resources>

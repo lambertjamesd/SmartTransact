@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"  >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/loginTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:gravity="center"
+        android:text="@string/text_account_login"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="12pt" />
 
-        <TextView
-            android:id="@+id/loginTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Account Login"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="@dimen/VMargin"  >
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="email"
-            android:inputType="textEmailAddress" >
+        <requestFocus />
+    </EditText>
 
-            <requestFocus />
-        </EditText>
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/buttonHMargin"
+        android:layout_marginRight="@dimen/buttonHMargin"
+        android:layout_marginTop="@dimen/VMargin"
+        android:background="@color/confirmColor"
+        android:enabled="false"
+        android:onClick="sendLogin"
+        android:text="@string/button_sign_in"
+        android:textSize="12pt"
+        android:textColor="@color/buttonText" />
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="111dp"
-            android:layout_height="wrap_content"
-            android:text="Sign In"
-            android:onClick="sendLogin"  />
-
-        <ProgressBar
-            android:id="@+id/keyGenStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-    
-
-</ScrollView>
+</LinearLayout>

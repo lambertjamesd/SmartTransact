@@ -8,17 +8,18 @@ import com.smarttransact.account.AccountStore;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends Activity implements IAccountCreationDelegate{
+public class LoginActivity extends Activity implements IAccountCreationDelegate, IAccountKeyGeneratorDelegate{
 	KeyPair key;
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		AccountKeyGenerator keyGen = new AccountKeyGenerator(null);
-		key = keyGen.doInBackground();
+		AccountKeyGenerator keyGen = new AccountKeyGenerator(this);
+		keyGen.execute();
 	}
 	
 	public void sendLogin(View view)
@@ -42,5 +43,12 @@ public class LoginActivity extends Activity implements IAccountCreationDelegate{
 	public void accountError(String message) {
 		TextView title = (TextView)findViewById(R.id.loginTitle);
 		title.setText(message);
+	}
+
+	@Override
+	public void keypairFinished(KeyPair keypair) {
+		key = keypair;
+		Button login = (Button)findViewById(R.id.loginButton);
+		login.setEnabled(true);
 	}
 }

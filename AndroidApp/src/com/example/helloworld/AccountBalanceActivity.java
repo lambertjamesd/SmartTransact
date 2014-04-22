@@ -35,8 +35,7 @@ public class AccountBalanceActivity extends Activity implements IAccountBalanceD
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_balance);
-		Button recheck = (Button)findViewById(R.id.balanceRecheck);
-		recheck.setVisibility(View.INVISIBLE);
+		Button recheck = (Button)findViewById(R.id.balanceRefresh);
 		account = AccountStore.loadAccount(getApplicationContext(), "default");
 		AccountBalanceRequest request = new AccountBalanceRequest(account, this);
 		request.execute();
@@ -56,16 +55,16 @@ public class AccountBalanceActivity extends Activity implements IAccountBalanceD
 	@Override
 	public void accountBalance(String data, String key) {
 		TextView name = (TextView)findViewById(R.id.balanceNameTitle);
+		TextView error = (TextView)findViewById(R.id.accountBalanceError);
+		name.setText("Account Name");
 		TextView nameValue = (TextView)findViewById(R.id.balanceNameValue);
 		TextView balance = (TextView)findViewById(R.id.balanceTitle);
 		TextView balanceValue = (TextView)findViewById(R.id.balanceValue);
-		Button logout = (Button)findViewById(R.id.balanceLogout);
-		Button recheck = (Button)findViewById(R.id.balanceRecheck);
+		name.setVisibility(View.VISIBLE);
 		nameValue.setVisibility(View.VISIBLE);
 		balance.setVisibility(View.VISIBLE);
 		balanceValue.setVisibility(View.VISIBLE);
-		recheck.setVisibility(View.INVISIBLE);
-		logout.setVisibility(View.VISIBLE);
+		error.setVisibility(View.GONE);
 		Cipher decryptCipher = null;
 		try {
 			byte[] keyBytes = Base64.decode(key, Base64.NO_WRAP);
@@ -139,14 +138,13 @@ public class AccountBalanceActivity extends Activity implements IAccountBalanceD
 		TextView nameValue = (TextView)findViewById(R.id.balanceNameValue);
 		TextView balance = (TextView)findViewById(R.id.balanceTitle);
 		TextView balanceValue = (TextView)findViewById(R.id.balanceValue);
-		Button logout = (Button)findViewById(R.id.balanceLogout);
-		Button recheck = (Button)findViewById(R.id.balanceRecheck);
-		nameValue.setVisibility(View.INVISIBLE);
-		balance.setVisibility(View.INVISIBLE);
-		balanceValue.setVisibility(View.INVISIBLE);
-		recheck.setVisibility(View.VISIBLE);
-		logout.setVisibility(View.INVISIBLE);
-		name.setText(message);
+		TextView error = (TextView)findViewById(R.id.accountBalanceError);
+		error.setVisibility(View.VISIBLE);
+		name.setVisibility(View.GONE);
+		nameValue.setVisibility(View.GONE);
+		balance.setVisibility(View.GONE);
+		balanceValue.setVisibility(View.GONE);
+		error.setText(message);
 		
 	}
 }

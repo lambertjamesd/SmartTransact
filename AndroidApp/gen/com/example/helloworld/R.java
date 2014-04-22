@@ -28,18 +28,18 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int accountName=0x7f080007;
-        public static final int balanceLogout=0x7f080004;
-        public static final int balanceNameTitle=0x7f080000;
-        public static final int balanceNameValue=0x7f080001;
-        public static final int balanceRecheck=0x7f080005;
-        public static final int balanceTitle=0x7f080002;
-        public static final int balanceValue=0x7f080003;
+        public static final int accountBalanceError=0x7f080000;
+        public static final int accountName=0x7f080008;
+        public static final int balanceLogout=0x7f080005;
+        public static final int balanceNameTitle=0x7f080001;
+        public static final int balanceNameValue=0x7f080002;
+        public static final int balanceRefresh=0x7f080006;
+        public static final int balanceTitle=0x7f080003;
+        public static final int balanceValue=0x7f080004;
         public static final int createAccount=0x7f08000b;
-        public static final int email=0x7f080008;
-        public static final int keyGenStatus=0x7f08000a;
-        public static final int loginButton=0x7f080009;
-        public static final int loginTitle=0x7f080006;
+        public static final int email=0x7f080009;
+        public static final int loginButton=0x7f08000a;
+        public static final int loginTitle=0x7f080007;
         public static final int transact_to_label=0x7f08000e;
         public static final int transaction_error=0x7f08000c;
         public static final int transaction_recipient=0x7f08000f;
@@ -57,8 +57,21 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int button_cancel=0x7f050006;
         public static final int button_confirm=0x7f050005;
+        public static final int button_create_account=0x7f05000c;
+        public static final int button_login=0x7f05000b;
+        public static final int button_logout=0x7f050007;
+        public static final int button_refresh=0x7f050008;
         public static final int button_send=0x7f050002;
+        public static final int button_sign_in=0x7f05000a;
+        public static final int button_sign_up=0x7f050009;
         public static final int edit_message=0x7f050001;
+        public static final int hint_email=0x7f050013;
+        public static final int hint_name=0x7f050012;
+        public static final int text_account_balance=0x7f05000f;
+        public static final int text_account_creation=0x7f050010;
+        public static final int text_account_login=0x7f050011;
+        public static final int text_account_name=0x7f05000e;
+        public static final int text_welcome=0x7f05000d;
         public static final int title_activity_main=0x7f050004;
     }
     public static final class style {

@@ -2,48 +2,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    android:background="@color/background" >
+	
+    <TextView
+        android:id="@+id/accountBalanceError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="10pt"
+        android:background="@color/errorBackground"
+        android:padding="@dimen/errorPadding"
+        android:textColor="@color/errorText"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
     <TextView
         android:id="@+id/balanceNameTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Account Name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:gravity="center"
+        android:text="@string/text_account_name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="10pt" />
 
     <TextView
         android:id="@+id/balanceNameValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center" 
+        android:textSize="14pt"/>
 
     <TextView
         android:id="@+id/balanceTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Account Balance"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:gravity="center"
+        android:text="@string/text_account_balance"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="10pt" />
 
     <TextView
         android:id="@+id/balanceValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:textSize="14pt" />
 
     <Button
         android:id="@+id/balanceLogout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:onClick="logout"
-        android:text="Logout" />
+        android:text="@string/button_logout"
+        android:textSize="12pt"
+        android:background="@color/cancelColor"
+    	android:layout_marginRight="@dimen/buttonHMargin"
+    	android:layout_marginLeft="@dimen/buttonHMargin" 
+    	android:layout_marginTop="@dimen/VMargin"
+    	android:textColor="@color/buttonText" />
 
     <Button
-        android:id="@+id/balanceRecheck"
-        android:layout_width="wrap_content"
+        android:id="@+id/balanceRefresh"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recheck"
-        android:onClick="recheck" />
+        android:gravity="center"
+        android:onClick="recheck"
+        android:text="@string/button_refresh"
+        android:textSize="12pt"
+        android:background="@color/confirmColor"
+    	android:layout_marginRight="@dimen/buttonHMargin"
+    	android:layout_marginLeft="@dimen/buttonHMargin" 
+    	android:layout_marginTop="@dimen/VMargin"
+    	android:textColor="@color/buttonText" />
 
 </LinearLayout>

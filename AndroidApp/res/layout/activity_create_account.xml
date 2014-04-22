@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background" >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/loginTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:gravity="center"
+        android:text="@string/text_account_creation"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="12pt" />
 
-        <TextView
-            android:id="@+id/loginTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Account Creation"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <EditText
+        android:id="@+id/accountName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_name"
+        android:inputType="textPersonName"
+    	android:layout_marginTop="@dimen/VMargin" >
+        <requestFocus />
+    </EditText>
 
-        <EditText
-            android:id="@+id/accountName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="@dimen/VMargin"  />
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="email"
-            android:inputType="textEmailAddress" >
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/buttonHMargin"
+        android:layout_marginRight="@dimen/buttonHMargin"
+        android:layout_marginTop="@dimen/VMargin"
+        android:background="@color/confirmColor"
+        android:textSize="12pt"
+        android:enabled="false"
+        android:onClick="signUp"
+        android:text="@string/button_sign_up"
+        android:textColor="@color/buttonText" />
 
-            <requestFocus />
-        </EditText>
+</LinearLayout>
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="111dp"
-            android:layout_height="wrap_content"
-            android:onClick="signUp"
-            android:text="Sign Up" />
-
-        <ProgressBar
-            android:id="@+id/keyGenStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-    
-
-</ScrollView>
