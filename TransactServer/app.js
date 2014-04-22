@@ -3,6 +3,7 @@ var app = express();
 
 var RestAPI = require('./RestAPI');
 var Website = require('./Website');
+var config = require('./config');
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -37,7 +38,7 @@ else
 	fullHostName = domain + ':' + port;
 }
 
-RestAPI(app, fullHostName);
+RestAPI(app, fullHostName, config.smtpUser, config.smtpPassword);
 Website(app, port, domain, fullHostName);
 
 app.listen(port);
