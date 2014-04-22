@@ -54,6 +54,7 @@
     	android:textColor="@color/buttonText" />
 
     <Button
+        android:id="@+id/transaction_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

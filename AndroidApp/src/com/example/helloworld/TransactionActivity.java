@@ -10,6 +10,7 @@ import com.smarttransact.deposit.Certificate;
 import com.smarttransact.deposit.ISubmitCertificateDelegate;
 import com.smarttransact.deposit.IVerifyAccountDelegate;
 import com.smarttransact.deposit.IVerifyCertificateDelegate;
+import com.smarttransact.deposit.ServerKey;
 import com.smarttransact.deposit.SubmitCertificateRequest;
 import com.smarttransact.deposit.VerifyAccountRequest;
 import com.smarttransact.deposit.VerifyCertificateRequest;
@@ -19,6 +20,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class TransactionActivity extends Activity implements IVerifyAccountDelegate, IVerifyCertificateDelegate, ISubmitCertificateDelegate
@@ -44,7 +46,10 @@ public class TransactionActivity extends Activity implements IVerifyAccountDeleg
 		TextView recipient = (TextView)findViewById(R.id.transaction_recipient);
 		TextView amount = (TextView)findViewById(R.id.transasction_amount);
 		TextView toLabel = (TextView)findViewById(R.id.transact_to_label);
+
+		Button confirmButton = (Button)findViewById(R.id.transaction_confirm);
 		
+		confirmButton.setEnabled(false);
 		recipient.setVisibility(View.GONE);
 		amount.setVisibility(View.GONE);
 		toLabel.setVisibility(View.GONE);
@@ -82,7 +87,8 @@ public class TransactionActivity extends Activity implements IVerifyAccountDeleg
 			{
 				amount = Integer.parseInt(am);
 				
-				VerifyAccountRequest accountRequest = new VerifyAccountRequest(accountID, this);
+				ServerKey key = new ServerKey(getResources().openRawResource(R.raw.server_public_key));
+				VerifyAccountRequest accountRequest = new VerifyAccountRequest(accountID, key, this);
 				accountRequest.execute();
 				
 				recipient.setText("...");
