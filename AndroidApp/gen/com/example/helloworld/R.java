@@ -11,39 +11,40 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int background=0x7f040000;
-        public static final int buttonText=0x7f040004;
-        public static final int cancelColor=0x7f040003;
-        public static final int confirmColor=0x7f040002;
-        public static final int errorBackground=0x7f040005;
-        public static final int errorText=0x7f040006;
-        public static final int headerBackground=0x7f040001;
+        public static final int background=0x7f050000;
+        public static final int buttonText=0x7f050004;
+        public static final int cancelColor=0x7f050003;
+        public static final int confirmColor=0x7f050002;
+        public static final int errorBackground=0x7f050005;
+        public static final int errorText=0x7f050006;
+        public static final int headerBackground=0x7f050001;
     }
     public static final class dimen {
-        public static final int VMargin=0x7f070001;
-        public static final int buttonHMargin=0x7f070000;
-        public static final int errorPadding=0x7f070002;
+        public static final int VMargin=0x7f080001;
+        public static final int buttonHMargin=0x7f080000;
+        public static final int errorPadding=0x7f080002;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int accountName=0x7f080007;
-        public static final int balanceLogout=0x7f080004;
-        public static final int balanceNameTitle=0x7f080000;
-        public static final int balanceNameValue=0x7f080001;
-        public static final int balanceRecheck=0x7f080005;
-        public static final int balanceTitle=0x7f080002;
-        public static final int balanceValue=0x7f080003;
-        public static final int createAccount=0x7f08000b;
-        public static final int email=0x7f080008;
-        public static final int keyGenStatus=0x7f08000a;
-        public static final int loginButton=0x7f080009;
-        public static final int loginTitle=0x7f080006;
-        public static final int transact_to_label=0x7f08000e;
-        public static final int transaction_error=0x7f08000c;
-        public static final int transaction_recipient=0x7f08000f;
-        public static final int transasction_amount=0x7f08000d;
+        public static final int accountName=0x7f090007;
+        public static final int balanceLogout=0x7f090004;
+        public static final int balanceNameTitle=0x7f090000;
+        public static final int balanceNameValue=0x7f090001;
+        public static final int balanceRecheck=0x7f090005;
+        public static final int balanceTitle=0x7f090002;
+        public static final int balanceValue=0x7f090003;
+        public static final int createAccount=0x7f09000b;
+        public static final int email=0x7f090008;
+        public static final int keyGenStatus=0x7f09000a;
+        public static final int loginButton=0x7f090009;
+        public static final int loginTitle=0x7f090006;
+        public static final int transact_to_label=0x7f09000e;
+        public static final int transaction_confirm=0x7f090010;
+        public static final int transaction_error=0x7f09000c;
+        public static final int transaction_recipient=0x7f09000f;
+        public static final int transasction_amount=0x7f09000d;
     }
     public static final class layout {
         public static final int activity_account_balance=0x7f030000;
@@ -52,14 +53,17 @@ public final class R {
         public static final int activity_main=0x7f030003;
         public static final int activity_transaction=0x7f030004;
     }
+    public static final class raw {
+        public static final int server_public_key=0x7f040000;
+    }
     public static final class string {
-        public static final int action_settings=0x7f050003;
-        public static final int app_name=0x7f050000;
-        public static final int button_cancel=0x7f050006;
-        public static final int button_confirm=0x7f050005;
-        public static final int button_send=0x7f050002;
-        public static final int edit_message=0x7f050001;
-        public static final int title_activity_main=0x7f050004;
+        public static final int action_settings=0x7f060003;
+        public static final int app_name=0x7f060000;
+        public static final int button_cancel=0x7f060006;
+        public static final int button_confirm=0x7f060005;
+        public static final int button_send=0x7f060002;
+        public static final int edit_message=0x7f060001;
+        public static final int title_activity_main=0x7f060004;
     }
     public static final class style {
         /** 
@@ -78,10 +82,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f070001;
     }
 }

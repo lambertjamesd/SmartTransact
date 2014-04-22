@@ -11,11 +11,13 @@ import com.example.helloworld.ServerRequest;
 public class VerifyAccountRequest extends ServerRequest {
 	
 	private IVerifyAccountDelegate delegate;
+	private ServerKey serverKey;
 	private String requestedID;
 
-	public VerifyAccountRequest(String accountID, IVerifyAccountDelegate delegate)
+	public VerifyAccountRequest(String accountID, ServerKey serverKey, IVerifyAccountDelegate delegate)
 	{
 		super("/verify/" + accountID, "GET");
+		this.serverKey = serverKey;
 		this.delegate = delegate;
 		requestedID = accountID;
 	}
@@ -29,6 +31,10 @@ public class VerifyAccountRequest extends ServerRequest {
 		 else if (signature == null)
 		 {
 			delegate.accountVerificationError("Response missing signature");
+		 }
+		 else if (!serverKey.validate(info, signature))
+		 {
+			delegate.accountVerificationError("Could not verify account identity");
 		 }
 		 else
 		 {
