@@ -101,8 +101,15 @@ Account.prototype.commitChanges = function(callback)
 	if (this.isDirty)
 	{
 		this.clearIsDirty();
+		var account = this;
+		
 		this._database.saveDoc(this._document).then(
-			function(){
+			function(doc){
+				if (account.id == null)
+				{
+					account._document._id = doc.id;
+				}
+				
 				callback(true);
 			}
 		);
